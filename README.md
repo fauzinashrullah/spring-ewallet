@@ -31,7 +31,7 @@ Users can register, log in, and (upcoming) perform basic e-wallet operations lik
 
 ### Prerequisites
 
-- Java 17+
+- Java 21
 - Maven
 - PostgreSQL
 
@@ -40,6 +40,6 @@ Users can register, log in, and (upcoming) perform basic e-wallet operations lik
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/ewallet-api.git
+git clone https://github.com/fauzinashrullah/spring-ewallet
 cd ewallet-api
 ```
