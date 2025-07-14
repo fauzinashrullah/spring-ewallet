@@ -5,8 +5,6 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.fauzi.ewallet.user.infrastructure.persistence.UserEntity;
-
-public interface SpringDataAuthRepository extends JpaRepository<UserEntity, UUID>{
-    Optional<UserEntity> findByEmail(String email);
+public interface SpringDataAuthRepository extends JpaRepository<AuthEntity, UUID>{
+    Optional<AuthEntity> findByEmail(String email);
 }

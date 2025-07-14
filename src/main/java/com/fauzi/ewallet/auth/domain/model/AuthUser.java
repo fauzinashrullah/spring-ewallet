@@ -1,4 +1,4 @@
-package com.fauzi.ewallet.user.domain;
+package com.fauzi.ewallet.auth.domain.model;
 
 import java.util.UUID;
 
@@ -7,9 +7,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class User {
+public class AuthUser {
     private UUID id;
-    private String name;
     private String email;
     private String password;
 }

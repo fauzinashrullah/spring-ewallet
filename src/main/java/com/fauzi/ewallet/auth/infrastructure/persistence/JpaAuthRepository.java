@@ -3,27 +3,27 @@ package com.fauzi.ewallet.auth.infrastructure.persistence;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import com.fauzi.ewallet.auth.domain.repository.AuthRepositoryPort;
-import com.fauzi.ewallet.user.domain.User;
-import com.fauzi.ewallet.user.infrastructure.mapper.UserMapper;
+import com.fauzi.ewallet.auth.domain.model.AuthUser;
+import com.fauzi.ewallet.auth.domain.repository.AuthRepository;
+import com.fauzi.ewallet.auth.infrastructure.mapper.AuthMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class JpaAuthRepository implements AuthRepositoryPort {
+public class JpaAuthRepository implements AuthRepository {
     
     private final SpringDataAuthRepository authRepo;
 
     @Override
-    public Optional<User> findByEmail(String email){
+    public Optional<AuthUser> findByEmail(String email){
         return authRepo.findByEmail(email)
-            .map(UserMapper::toDomain);
+            .map(AuthMapper::toDomain);
     }
 
-    public void save(User user){
-        authRepo.save(UserMapper.toEntity(user));
+    @Override
+    public void save(AuthUser user){
+        authRepo.save(AuthMapper.toEntity(user));
     }
 }

@@ -1,11 +1,6 @@
 package com.fauzi.ewallet.auth.infrastructure.mapper;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import com.fauzi.ewallet.shared.config.BeanConfig;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +12,10 @@ public class PasswordHasher {
 
     public String hash(String password){
         return passwordEncoder.encode(password);
+    }
+
+    public Boolean verify(String password, String hash){
+        return passwordEncoder.matches(password, hash);
     }
 
    
