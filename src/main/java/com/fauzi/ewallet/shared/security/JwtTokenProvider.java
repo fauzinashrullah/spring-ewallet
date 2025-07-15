@@ -9,6 +9,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.fauzi.ewallet.shared.exception.UnauthorizedException;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -97,6 +99,13 @@ public class JwtTokenProvider {
 
         Date exp = claims.getExpiration();       
         return Duration.between(Instant.now(), exp.toInstant());              
+    }
+
+    public String resolveToken(String header) {
+        if (header != null && header.startsWith("Bearer ")) {
+            return header.substring(7);
+        }
+        throw new UnauthorizedException("Invalid token format");
     }
 
 }

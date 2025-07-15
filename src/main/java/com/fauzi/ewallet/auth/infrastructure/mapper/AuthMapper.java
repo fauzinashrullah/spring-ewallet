@@ -2,7 +2,6 @@ package com.fauzi.ewallet.auth.infrastructure.mapper;
 
 import com.fauzi.ewallet.auth.domain.model.AuthUser;
 import com.fauzi.ewallet.auth.infrastructure.persistence.AuthEntity;
-import com.fauzi.ewallet.auth.infrastructure.persistence.RefreshTokenEntity;
 
 public class AuthMapper {
     public static AuthUser toDomain(AuthEntity e){

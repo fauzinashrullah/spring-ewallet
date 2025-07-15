@@ -1,10 +1,11 @@
 package com.fauzi.ewallet.auth.application.service;
 
+import java.time.Duration;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.fauzi.ewallet.auth.application.dto.TokenResponse;
+import com.fauzi.ewallet.auth.application.result.TokenResult;
 import com.fauzi.ewallet.auth.application.usecase.RefreshUseCase;
 import com.fauzi.ewallet.auth.domain.repository.AuthRepository;
 import com.fauzi.ewallet.auth.domain.repository.RefreshTokenRepository;
@@ -22,7 +23,7 @@ public class RefreshService implements RefreshUseCase{
     private final RefreshTokenRepository refreshTokenRepository;
     private final AuthRepository authRepository;
 
-    public TokenResponse execute(String token){
+    public TokenResult execute(String token){
         if(!jwt.validateToken(token)){
             throw new UnauthorizedException("Invalid refresh token");
         }
@@ -39,9 +40,10 @@ public class RefreshService implements RefreshUseCase{
             .getEmail();
         String accessToken = jwt.generateToken(userId, email);
         String refreshToken = jwt.generateRefreshToken(userId);
+        Duration ttl = jwt.getExpiration(refreshToken);
 
         refreshTokenRepository.save(userId, refreshToken, jwt.getExpiration(refreshToken));
-        return new TokenResponse(accessToken, refreshToken);
+        return new TokenResult(accessToken, refreshToken, ttl);
     }
     
 }

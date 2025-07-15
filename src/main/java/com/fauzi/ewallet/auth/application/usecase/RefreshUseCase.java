@@ -1,7 +1,7 @@
 package com.fauzi.ewallet.auth.application.usecase;
 
-import com.fauzi.ewallet.auth.application.dto.TokenResponse;
+import com.fauzi.ewallet.auth.application.result.TokenResult;
 
 public interface RefreshUseCase {
-    TokenResponse execute(String token);
+    TokenResult execute(String token);
 }
