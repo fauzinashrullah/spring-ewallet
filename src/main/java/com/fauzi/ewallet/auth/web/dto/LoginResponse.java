@@ -1,5 +1,7 @@
 package com.fauzi.ewallet.auth.web.dto;
 
+import com.fauzi.ewallet.auth.application.dto.TokenResponse;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,5 +10,5 @@ import lombok.Getter;
 public class LoginResponse {
     private String name;
     private String email;
-    private String token;
+    private TokenResponse token;
 }

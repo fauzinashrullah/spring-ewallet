@@ -1,6 +1,7 @@
 package com.fauzi.ewallet.auth.infrastructure.persistence;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,12 @@ public class JpaAuthRepository implements AuthRepository {
     @Override
     public Optional<AuthUser> findByEmail(String email){
         return authRepo.findByEmail(email)
+            .map(AuthMapper::toDomain);
+    }
+
+    @Override
+    public Optional<AuthUser> findById(UUID id){
+        return authRepo.findById(id)
             .map(AuthMapper::toDomain);
     }
 

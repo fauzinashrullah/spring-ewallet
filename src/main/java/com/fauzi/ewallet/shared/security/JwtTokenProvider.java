@@ -1,6 +1,7 @@
 package com.fauzi.ewallet.shared.security;
 
 import java.security.Key;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
@@ -42,7 +43,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String generateRefreshToken(UUID userId, String email) {
+    public String generateRefreshToken(UUID userId) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + refreshJwtExpirationInSeconds * 1000);
 
@@ -77,14 +78,17 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token);
+            Jwts.parserBuilder()
+                .setSigningKey(getSignInKey())
+                .build()
+                .parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
     
-    public Instant getExpiration(String token) {
+    public Duration getExpiration(String token) {
         Claims claims = Jwts.parserBuilder()
             .setSigningKey(getSignInKey())
             .build()
@@ -92,7 +96,7 @@ public class JwtTokenProvider {
             .getBody();
 
         Date exp = claims.getExpiration();       
-        return exp.toInstant();                 
+        return Duration.between(Instant.now(), exp.toInstant());              
     }
 
 }

@@ -15,13 +15,17 @@ public class RedisBlacklistTokenRepository implements BlacklistTokenRepository {
 
     private final StringRedisTemplate redisTemplate;
 
+    private String key(String token){
+        return "blacklist:" + token;
+    }
+
     @Override
     public void blacklist(String token, Duration ttl) {
-        redisTemplate.opsForValue().set("blacklist:" + token, "", ttl);
+        redisTemplate.opsForValue().set(key(token), "", ttl);
     }
 
     @Override
     public boolean isBlacklisted(String token) {
-        return redisTemplate.hasKey("blacklist:" + token);
+        return redisTemplate.hasKey(key(token));
     }
 }
