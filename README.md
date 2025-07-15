@@ -90,9 +90,6 @@ Designed to be modular, scalable, and production-ready.
 
 ### 📦 Setup
 
-### 📦 Setup
-
-<pre>
 <pre>
 git clone https://github.com/fauzinashrullah/spring-ewallet
 cd spring-ewallet
