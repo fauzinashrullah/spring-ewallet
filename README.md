@@ -4,11 +4,21 @@ A RESTful API for a simple and secure e-wallet system built using **Spring Boot*
 
 Users can register, log in, and manage their wallet (top-up, transfer, view transaction history).  
 Designed to be modular, scalable, and production-ready.
+A RESTful API for a simple and secure e-wallet system built using **Spring Boot** with **DDD + Hexagonal Architecture**.
+
+Users can register, log in, and manage their wallet (top-up, transfer, view transaction history).  
+Designed to be modular, scalable, and production-ready.
 
 ---
 
 ## 📌 Features
 
+- ✅ User registration & login
+- ✅ JWT authentication with refresh token (secure with Redis + Cookie)
+- ✅ Logout with token blacklist
+- ✅ Get current user (`/me`)
+- 🚧 Balance top-up and transfer (in progress)
+- 🚧 Transaction history (in progress)
 - ✅ User registration & login
 - ✅ JWT authentication with refresh token (secure with Redis + Cookie)
 - ✅ Logout with token blacklist
@@ -39,9 +49,32 @@ Designed to be modular, scalable, and production-ready.
 | Docs       | Swagger / OpenAPI (planned) |
 | Build Tool | Maven                       |
 
+## 🧱 Architecture
+
+- ✅ Domain-Driven Design (DDD)
+- ✅ Hexagonal (Ports & Adapters) Architecture
+- ✅ Multi-layered (domain, application, infrastructure, web)
+- ✅ Separation of concern & testable design
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer      | Tools & Libraries           |
+| ---------- | --------------------------- |
+| Backend    | Java 21, Spring Boot        |
+| Database   | PostgreSQL, Redis           |
+| Security   | Spring Security, JWT        |
+| Validation | Hibernate Validator         |
+| Testing    | JUnit, Mockito (planned)    |
+| Docs       | Swagger / OpenAPI (planned) |
+| Build Tool | Maven                       |
+
 ---
 
 ## 🚀 Getting Started
+
+### ✅ Prerequisites
 
 ### ✅ Prerequisites
 
@@ -49,11 +82,17 @@ Designed to be modular, scalable, and production-ready.
 - Maven
 - PostgreSQL
 - Redis (for refresh token blacklist)
+- Redis (for refresh token blacklist)
+
+---
 
 ---
 
 ### 📦 Setup
 
+### 📦 Setup
+
+<pre>
 <pre>
 git clone https://github.com/fauzinashrullah/spring-ewallet
 cd spring-ewallet
@@ -147,7 +186,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## 📄 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is open-source and available under the [MIT License](LICENSE.md).
 
 ---
 
