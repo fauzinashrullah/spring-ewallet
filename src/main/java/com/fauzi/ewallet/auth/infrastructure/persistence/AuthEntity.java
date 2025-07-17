@@ -2,6 +2,8 @@ package com.fauzi.ewallet.auth.infrastructure.persistence;
 
 import java.util.UUID;
 
+import com.fauzi.ewallet.auth.domain.model.Role;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -15,4 +17,5 @@ public class AuthEntity {
     private UUID id;
     private String email;
     private String password;
+    private Role role;
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fauzi.ewallet.auth.application.result.TokenResult;
 import com.fauzi.ewallet.auth.application.usecase.RefreshUseCase;
+import com.fauzi.ewallet.auth.domain.model.AuthUser;
 import com.fauzi.ewallet.auth.domain.repository.AuthRepository;
 import com.fauzi.ewallet.auth.domain.repository.RefreshTokenRepository;
 import com.fauzi.ewallet.shared.exception.NotFoundException;
@@ -35,10 +36,9 @@ public class RefreshService implements RefreshUseCase{
 
         refreshTokenRepository.delete(userId);
 
-        String email = authRepository.findById(userId)
-            .orElseThrow(() -> new NotFoundException("User not found"))
-            .getEmail();
-        String accessToken = jwt.generateToken(userId, email);
+        AuthUser authUser = authRepository.findById(userId)
+            .orElseThrow(() -> new NotFoundException("User not found"));
+        String accessToken = jwt.generateToken(authUser);
         String refreshToken = jwt.generateRefreshToken(userId);
         Duration ttl = jwt.getExpiration(refreshToken);
 

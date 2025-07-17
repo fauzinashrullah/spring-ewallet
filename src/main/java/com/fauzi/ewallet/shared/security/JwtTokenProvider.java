@@ -4,11 +4,18 @@ import java.security.Key;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import com.fauzi.ewallet.auth.domain.model.AuthUser;
 import com.fauzi.ewallet.shared.exception.UnauthorizedException;
 
 import io.jsonwebtoken.Claims;
@@ -32,13 +39,17 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
-    public String generateToken(UUID userId, String email) {
+    public String generateToken(AuthUser user) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInSeconds * 1000);
 
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("email", user.getEmail());
+        claims.put("role", user.getRole().name());
+
         return Jwts.builder()
-                .setSubject(userId.toString())
-                .claim("email", email)
+                .setSubject(user.getId().toString())
+                .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(getSignInKey(),SignatureAlgorithm.HS256)
@@ -58,21 +69,13 @@ public class JwtTokenProvider {
     }
 
     public UUID getUserIdFromToken(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims = extractAllClaims(token);
 
         return UUID.fromString(claims.getSubject());
     }
 
     public String getEmailFromToken(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims = extractAllClaims(token);
 
         return claims.get("email", String.class);
     }
@@ -80,10 +83,7 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token);
+            extractAllClaims(token);
             return true;
         } catch (Exception e) {
             return false;
@@ -91,11 +91,7 @@ public class JwtTokenProvider {
     }
     
     public Duration getExpiration(String token) {
-        Claims claims = Jwts.parserBuilder()
-            .setSigningKey(getSignInKey())
-            .build()
-            .parseClaimsJws(token)
-            .getBody();
+        Claims claims = extractAllClaims(token);
 
         Date exp = claims.getExpiration();       
         return Duration.between(Instant.now(), exp.toInstant());              
@@ -108,5 +104,24 @@ public class JwtTokenProvider {
         throw new UnauthorizedException("Invalid token format");
     }
 
+    public String getRole(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("role", String.class);
+    }
+
+    public Authentication getAuthentication(String token) {
+    String email = getEmailFromToken(token);
+    String role = getRole(token);
+    SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
+    return new UsernamePasswordAuthenticationToken(email, null, List.of(authority));
+}
+
+    private Claims extractAllClaims(String token){
+        return Jwts.parserBuilder()
+            .setSigningKey(getSignInKey())
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
+    }
 }
 

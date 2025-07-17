@@ -8,6 +8,7 @@ import com.fauzi.ewallet.auth.application.command.RegisterCommand;
 import com.fauzi.ewallet.auth.application.result.UserResult;
 import com.fauzi.ewallet.auth.application.usecase.RegisterUseCase;
 import com.fauzi.ewallet.auth.domain.model.AuthUser;
+import com.fauzi.ewallet.auth.domain.model.Role;
 import com.fauzi.ewallet.auth.domain.repository.AuthRepository;
 import com.fauzi.ewallet.auth.domain.repository.PasswordHasher;
 import com.fauzi.ewallet.shared.exception.EmailAlreadyExistsException;
@@ -32,7 +33,8 @@ public class RegisterService implements RegisterUseCase{
         String password = passwordHasher.hash(query.password());
         UUID userId = UUID.randomUUID();
 
-        AuthUser authUser = new AuthUser(userId, query.email(), password);
+        Role role = Role.ROLE_USER;
+        AuthUser authUser = new AuthUser(userId, query.email(), password, role);
         authRepository.save(authUser);
 
         userCommandServiceImpl.createProfile(userId, query.name());

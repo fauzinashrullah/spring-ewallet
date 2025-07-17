@@ -28,7 +28,7 @@ public class GetCurrentUserService implements GetCurrentUserUseCase{
             throw new UnauthorizedException("Token has been blacklisted");
         }
         if(!jwt.validateToken(token)){
-            throw new UnauthorizedException("Invalid refresh token");
+            throw new UnauthorizedException("Invalid token");
         }
         UUID userId = jwt.getUserIdFromToken(token);
         String email = jwt.getEmailFromToken(token);
