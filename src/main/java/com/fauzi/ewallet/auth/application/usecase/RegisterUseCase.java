@@ -1,8 +1,8 @@
 package com.fauzi.ewallet.auth.application.usecase;
 
 import com.fauzi.ewallet.auth.application.command.RegisterCommand;
-import com.fauzi.ewallet.auth.application.result.UserResult;
+import com.fauzi.ewallet.auth.application.result.UserAuthResult;
 
 public interface RegisterUseCase {
-    UserResult execute(RegisterCommand query);
+    UserAuthResult execute(RegisterCommand query);
 }

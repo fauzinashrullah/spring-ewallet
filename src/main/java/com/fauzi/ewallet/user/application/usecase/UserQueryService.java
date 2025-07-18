@@ -2,8 +2,9 @@ package com.fauzi.ewallet.user.application.usecase;
 
 import java.util.UUID;
 
-import com.fauzi.ewallet.user.domain.model.User;
+import com.fauzi.ewallet.user.application.result.UserResult;
+
 
 public interface UserQueryService {
-    User findByAuthUserId(UUID authUserId);
+    UserResult findByAuthUserId(UUID authUserId);
 }

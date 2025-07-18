@@ -4,13 +4,13 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.fauzi.ewallet.auth.application.result.UserResult;
+import com.fauzi.ewallet.auth.application.result.UserAuthResult;
 import com.fauzi.ewallet.auth.application.usecase.GetCurrentUserUseCase;
 import com.fauzi.ewallet.auth.domain.repository.BlacklistTokenRepository;
 import com.fauzi.ewallet.shared.exception.UnauthorizedException;
 import com.fauzi.ewallet.shared.security.JwtTokenProvider;
+import com.fauzi.ewallet.user.application.result.UserResult;
 import com.fauzi.ewallet.user.application.usecase.UserQueryService;
-import com.fauzi.ewallet.user.domain.model.User;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +22,7 @@ public class GetCurrentUserService implements GetCurrentUserUseCase{
     private final UserQueryService userQueryService;
     private final BlacklistTokenRepository blacklistTokenRepository;
     
-    public UserResult execute (String authHeader){
+    public UserAuthResult execute (String authHeader){
         String token = jwt.resolveToken(authHeader);
         if (blacklistTokenRepository.isBlacklisted(token)){
             throw new UnauthorizedException("Token has been blacklisted");
@@ -33,9 +33,9 @@ public class GetCurrentUserService implements GetCurrentUserUseCase{
         UUID userId = jwt.getUserIdFromToken(token);
         String email = jwt.getEmailFromToken(token);
 
-        User user = userQueryService.findByAuthUserId(userId);
+        UserResult user = userQueryService.findByAuthUserId(userId);
 
-        UserResult response = new UserResult(user.getFullName(), email);
+        UserAuthResult response = new UserAuthResult(user.fullName(), email);
         return response;
     }
 }

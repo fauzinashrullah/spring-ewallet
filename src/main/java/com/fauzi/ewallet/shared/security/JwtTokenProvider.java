@@ -47,8 +47,8 @@ public class JwtTokenProvider {
         claims.put("role", role);
 
         return Jwts.builder()
-                .setSubject(id.toString())
                 .setClaims(claims)
+                .setSubject(id.toString())
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(getSignInKey(),SignatureAlgorithm.HS256)
@@ -89,7 +89,7 @@ public class JwtTokenProvider {
         }
     }
     
-    public Duration getExpiration(String token) {
+    public Duration getExpirationDuration(String token) {
         Claims claims = extractAllClaims(token);
 
         Date exp = claims.getExpiration();       

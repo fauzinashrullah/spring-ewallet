@@ -23,9 +23,9 @@ public class LogoutService implements LogoutUseCase {
     @Override
     public void execute(String authHeader) {
         String token = jwt.resolveToken(authHeader);
-        Duration ttl = jwt.getExpiration(token);
-        blacklistRepo.blacklist(token, ttl);
+        Duration ttl = jwt.getExpirationDuration(token);
         UUID userId = jwt.getUserIdFromToken(token);
+        blacklistRepo.blacklist(token, ttl);
         refreshTokenRepository.delete(userId);
     }
 }

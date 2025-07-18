@@ -1,7 +1,7 @@
 package com.fauzi.ewallet.auth.application.usecase;
 
-import com.fauzi.ewallet.auth.application.result.UserResult;
+import com.fauzi.ewallet.auth.application.result.UserAuthResult;
 
 public interface GetCurrentUserUseCase {
-    UserResult execute (String token);
+    UserAuthResult execute (String token);
 }

@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.fauzi.ewallet.auth.application.command.RegisterCommand;
-import com.fauzi.ewallet.auth.application.result.UserResult;
+import com.fauzi.ewallet.auth.application.result.UserAuthResult;
 import com.fauzi.ewallet.auth.application.usecase.RegisterUseCase;
 import com.fauzi.ewallet.auth.domain.model.AuthUser;
 import com.fauzi.ewallet.auth.domain.model.Role;
@@ -25,20 +25,20 @@ public class RegisterService implements RegisterUseCase{
     private final UserQueryService userQueryService;
     private final UserCommandServiceImpl userCommandServiceImpl;
 
-    public UserResult execute(RegisterCommand query){
-        if (authRepository.findByEmail(query.email()).isPresent()){
+    public UserAuthResult execute(RegisterCommand command){
+        if (authRepository.findByEmail(command.email()).isPresent()){
             throw new EmailAlreadyExistsException();
         }
 
-        String password = passwordHasher.hash(query.password());
+        String password = passwordHasher.hash(command.password());
         UUID userId = UUID.randomUUID();
 
         Role role = Role.ROLE_USER;
-        AuthUser authUser = new AuthUser(userId, query.email(), password, role);
+        AuthUser authUser = new AuthUser(userId, command.email(), password, role);
         authRepository.save(authUser);
 
-        userCommandServiceImpl.createProfile(userId, query.name());
-        String name = userQueryService.findByAuthUserId(userId).getFullName();
-        return new UserResult(name, authUser.getEmail());
+        userCommandServiceImpl.createProfile(userId, command.name());
+        String name = userQueryService.findByAuthUserId(userId).fullName();
+        return new UserAuthResult(name, authUser.getEmail());
     }
 }

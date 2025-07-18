@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class LoginService implements LoginUseCase{
     private final AuthRepository authRepository;
     private final PasswordHasher passwordHasher;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwt;
     private final RefreshTokenRepository refreshTokenRepository;
 
     public TokenResult execute(LoginCommand query){
@@ -31,11 +31,12 @@ public class LoginService implements LoginUseCase{
         if (!passwordHasher.verify(query.password(), authUser.getPassword())){
             throw new UnauthorizedException("Invalid email or password");
         }
+        
+        String accessToken = jwt.generateToken(authUser.getId(), authUser.getEmail(), authUser.getRole().toString());
 
-        String accessToken = jwtTokenProvider.generateToken(authUser.getId(), authUser.getEmail(), authUser.getRole().toString());
-        String refreshToken = jwtTokenProvider.generateRefreshToken(authUser.getId());
+        String refreshToken = jwt.generateRefreshToken(authUser.getId());
 
-        Duration ttl = jwtTokenProvider.getExpiration(refreshToken);
+        Duration ttl = jwt.getExpirationDuration(refreshToken);
         refreshTokenRepository.save(authUser.getId(), refreshToken, ttl);
 
         return new TokenResult(accessToken, refreshToken, ttl);

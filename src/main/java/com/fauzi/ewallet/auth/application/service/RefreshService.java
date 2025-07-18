@@ -40,9 +40,9 @@ public class RefreshService implements RefreshUseCase{
             .orElseThrow(() -> new NotFoundException("User not found"));
         String accessToken = jwt.generateToken(authUser.getId(), authUser.getEmail(), authUser.getRole().toString());
         String refreshToken = jwt.generateRefreshToken(userId);
-        Duration ttl = jwt.getExpiration(refreshToken);
+        Duration ttl = jwt.getExpirationDuration(refreshToken);
 
-        refreshTokenRepository.save(userId, refreshToken, jwt.getExpiration(refreshToken));
+        refreshTokenRepository.save(userId, refreshToken, jwt.getExpirationDuration(refreshToken));
         return new TokenResult(accessToken, refreshToken, ttl);
     }
     
