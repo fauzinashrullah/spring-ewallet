@@ -15,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import com.fauzi.ewallet.auth.domain.model.AuthUser;
 import com.fauzi.ewallet.shared.exception.UnauthorizedException;
 
 import io.jsonwebtoken.Claims;
@@ -39,16 +38,16 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
-    public String generateToken(AuthUser user) {
+    public String generateToken(UUID id, String email, String role) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInSeconds * 1000);
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("email", user.getEmail());
-        claims.put("role", user.getRole().name());
+        claims.put("email", email);
+        claims.put("role", role);
 
         return Jwts.builder()
-                .setSubject(user.getId().toString())
+                .setSubject(id.toString())
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)

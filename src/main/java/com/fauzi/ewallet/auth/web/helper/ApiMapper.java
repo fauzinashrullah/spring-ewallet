@@ -1,4 +1,4 @@
-package com.fauzi.ewallet.auth.web.mappper;
+package com.fauzi.ewallet.auth.web.helper;
 
 import com.fauzi.ewallet.auth.application.result.UserResult;
 import com.fauzi.ewallet.auth.web.dto.response.UserResponse;

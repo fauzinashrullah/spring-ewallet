@@ -32,7 +32,7 @@ public class LoginService implements LoginUseCase{
             throw new UnauthorizedException("Invalid email or password");
         }
 
-        String accessToken = jwtTokenProvider.generateToken(authUser);
+        String accessToken = jwtTokenProvider.generateToken(authUser.getId(), authUser.getEmail(), authUser.getRole().toString());
         String refreshToken = jwtTokenProvider.generateRefreshToken(authUser.getId());
 
         Duration ttl = jwtTokenProvider.getExpiration(refreshToken);

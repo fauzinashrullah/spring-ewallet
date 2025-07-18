@@ -14,6 +14,7 @@ import com.fauzi.ewallet.auth.application.usecase.LoginUseCase;
 import com.fauzi.ewallet.auth.web.dto.request.LoginRequest;
 import com.fauzi.ewallet.auth.web.dto.response.ApiResponse;
 import com.fauzi.ewallet.auth.web.dto.response.TokenResponse;
+import com.fauzi.ewallet.auth.web.helper.CookieUtil;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,13 +30,7 @@ public class LoginUserController {
     public ResponseEntity<ApiResponse<TokenResponse>> login(@Valid @RequestBody LoginRequest request) {
         LoginCommand command = new LoginCommand(request.getEmail(), request.getPassword());
         TokenResult token = login.execute(command);
-        ResponseCookie cookie = ResponseCookie.from("refresh_token", token.refreshToken())
-            .httpOnly(true)
-            .secure(true)
-            .path("/api/v1/auth/refresh")
-            .sameSite("Strict")
-            .maxAge(token.ttl())
-            .build();
+        ResponseCookie cookie = CookieUtil.createRefreshTokenCookie(token);
 
         TokenResponse response = new TokenResponse(token.accessToken());
         return ResponseEntity.ok()

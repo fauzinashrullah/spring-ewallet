@@ -12,6 +12,7 @@ import com.fauzi.ewallet.auth.application.result.TokenResult;
 import com.fauzi.ewallet.auth.application.usecase.RefreshUseCase;
 import com.fauzi.ewallet.auth.web.dto.response.ApiResponse;
 import com.fauzi.ewallet.auth.web.dto.response.TokenResponse;
+import com.fauzi.ewallet.auth.web.helper.CookieUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,13 +26,7 @@ public class RefreshController {
     @PostMapping("/refresh")
     public ResponseEntity<ApiResponse<TokenResponse>> refresh(@CookieValue("refresh_token") String refreshToken) {
         TokenResult token = refresh.execute(refreshToken);
-        ResponseCookie cookie = ResponseCookie.from("refresh_token", token.refreshToken())
-            .httpOnly(true)
-            .secure(true)
-            .path("/api/v1/auth/refresh")
-            .sameSite("Strict")
-            .maxAge(token.ttl())
-            .build();
+        ResponseCookie cookie = CookieUtil.createRefreshTokenCookie(token);
 
         TokenResponse response = new TokenResponse(token.accessToken());
         return ResponseEntity.ok()

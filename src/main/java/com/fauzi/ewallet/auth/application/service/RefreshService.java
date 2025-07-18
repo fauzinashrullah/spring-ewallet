@@ -38,7 +38,7 @@ public class RefreshService implements RefreshUseCase{
 
         AuthUser authUser = authRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException("User not found"));
-        String accessToken = jwt.generateToken(authUser);
+        String accessToken = jwt.generateToken(authUser.getId(), authUser.getEmail(), authUser.getRole().toString());
         String refreshToken = jwt.generateRefreshToken(userId);
         Duration ttl = jwt.getExpiration(refreshToken);
 
