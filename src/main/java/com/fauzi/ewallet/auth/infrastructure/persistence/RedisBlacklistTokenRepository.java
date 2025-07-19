@@ -5,7 +5,7 @@ import java.time.Duration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.fauzi.ewallet.auth.domain.repository.BlacklistTokenRepository;
+import com.fauzi.ewallet.shared.security.BlacklistTokenRepository;
 
 import lombok.RequiredArgsConstructor;
 

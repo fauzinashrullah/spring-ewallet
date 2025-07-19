@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fauzi.ewallet.auth.application.command.RegisterCommand;
 import com.fauzi.ewallet.auth.application.usecase.RegisterUseCase;
 import com.fauzi.ewallet.auth.web.dto.request.RegisterRequest;
-import com.fauzi.ewallet.auth.web.dto.response.ApiResponse;
 import com.fauzi.ewallet.auth.web.dto.response.UserResponse;
 import com.fauzi.ewallet.auth.web.mapper.ApiMapper;
+import com.fauzi.ewallet.shared.common.dto.ApiResponse;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

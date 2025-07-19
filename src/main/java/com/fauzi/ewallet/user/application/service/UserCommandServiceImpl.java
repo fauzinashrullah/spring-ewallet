@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.fauzi.ewallet.shared.exception.NotFoundException;
 import com.fauzi.ewallet.user.application.result.UserResult;
 import com.fauzi.ewallet.user.application.usecase.UserCommandService;
 import com.fauzi.ewallet.user.application.usecase.UserQueryService;
@@ -24,7 +25,8 @@ public class UserCommandServiceImpl implements UserCommandService, UserQueryServ
     }
 
     public UserResult findByAuthUserId(UUID id){
-        User user = repository.findByAuthUserId(id);
-        return new UserResult(user.getAuthUserId(), user.getFullName());
+        User user = repository.findByAuthUserId(id)
+            .orElseThrow(() -> new NotFoundException("User not found"));
+        return new UserResult(user.getAuthUserId(), user.getFullName(), null);
     }
 }

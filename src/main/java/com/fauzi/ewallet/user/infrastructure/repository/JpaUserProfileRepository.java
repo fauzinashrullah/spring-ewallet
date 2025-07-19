@@ -1,5 +1,6 @@
 package com.fauzi.ewallet.user.infrastructure.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
@@ -19,9 +20,9 @@ public class JpaUserProfileRepository implements UserProfileRepository{
         repository.save(UserMapper.toEntity(user));
     }
 
-    public User findByAuthUserId(UUID id){
-        return UserMapper.toDomain(repository.findByAuthUserId(id)
-            .orElseThrow(() -> new RuntimeException("id not found"))
-        );
+    public Optional<User> findByAuthUserId(UUID id){
+        return repository.findByAuthUserId(id)
+            .map(UserMapper::toDomain);
+       
     }
 }

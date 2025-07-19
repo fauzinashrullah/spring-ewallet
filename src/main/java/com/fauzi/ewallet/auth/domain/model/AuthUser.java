@@ -12,4 +12,8 @@ public class AuthUser {
     private String email;
     private String password;
     private Role role;
+
+    public void updateEmail (String email){
+        this.email = email;
+    }
 }

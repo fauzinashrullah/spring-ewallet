@@ -30,12 +30,6 @@ public class GlobalExceptionHandler {
         return Map.of("message", ex.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Map<String, String> handleUnexpected(Exception ex) {
-        return Map.of("message", "Internal server error");
-    }
-    
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

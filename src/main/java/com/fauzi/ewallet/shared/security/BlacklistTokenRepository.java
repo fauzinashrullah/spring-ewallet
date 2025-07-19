@@ -1,4 +1,4 @@
-package com.fauzi.ewallet.auth.domain.repository;
+package com.fauzi.ewallet.shared.security;
 
 import java.time.Duration;
 

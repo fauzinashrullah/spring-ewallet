@@ -12,9 +12,9 @@ import com.fauzi.ewallet.auth.application.command.LoginCommand;
 import com.fauzi.ewallet.auth.application.result.TokenResult;
 import com.fauzi.ewallet.auth.application.usecase.LoginUseCase;
 import com.fauzi.ewallet.auth.web.dto.request.LoginRequest;
-import com.fauzi.ewallet.auth.web.dto.response.ApiResponse;
 import com.fauzi.ewallet.auth.web.dto.response.TokenResponse;
 import com.fauzi.ewallet.auth.web.helper.CookieUtil;
+import com.fauzi.ewallet.shared.common.dto.ApiResponse;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

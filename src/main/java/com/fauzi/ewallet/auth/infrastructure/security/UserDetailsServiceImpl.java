@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fauzi.ewallet.auth.infrastructure.persistence.AuthEntity;
 import com.fauzi.ewallet.auth.infrastructure.persistence.SpringDataAuthRepository;
+import com.fauzi.ewallet.shared.security.UserDetailsImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         AuthEntity user = repository.findByEmail(email)
             .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
         
-        return new UserDetailsImpl(user);
+        return new UserDetailsImpl(user.getId(), user.getEmail(), user.getPassword(), user.getRole());
     }
 }

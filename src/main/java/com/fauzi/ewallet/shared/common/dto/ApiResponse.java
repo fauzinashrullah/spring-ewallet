@@ -1,4 +1,4 @@
-package com.fauzi.ewallet.auth.web.dto.response;
+package com.fauzi.ewallet.shared.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

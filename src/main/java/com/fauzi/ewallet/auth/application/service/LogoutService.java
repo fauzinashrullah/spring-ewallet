@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.fauzi.ewallet.auth.application.usecase.LogoutUseCase;
-import com.fauzi.ewallet.auth.domain.repository.BlacklistTokenRepository;
 import com.fauzi.ewallet.auth.domain.repository.RefreshTokenRepository;
+import com.fauzi.ewallet.shared.security.BlacklistTokenRepository;
 import com.fauzi.ewallet.shared.security.JwtTokenProvider;
 
 import lombok.RequiredArgsConstructor;

@@ -10,4 +10,8 @@ import lombok.Getter;
 public class User {
     private UUID authUserId;
     private String fullName;
+
+    public void setName (String name){
+        this.fullName = name;
+    }
 }

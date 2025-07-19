@@ -22,16 +22,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwt;
     private final UserDetailsService userDetailsService;
+    private final BlacklistTokenRepository blacklistTokenRepository;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain chain)
         throws ServletException, IOException {
-
+        
         String token = resolveToken(request);
 
-        if (token != null && jwt.validateToken(token)) {
+        if (token != null && jwt.validateToken(token) && !blacklistTokenRepository.isBlacklisted(token)) {
             String userEmail = jwt.getEmailFromToken(token);
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
