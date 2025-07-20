@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-public class UserController {
+public class UpdateUserController {
     
     private final UpdateUserUseCase updateUserUseCase;
 

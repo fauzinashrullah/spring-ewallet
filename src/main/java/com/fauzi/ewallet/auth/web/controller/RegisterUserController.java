@@ -32,7 +32,7 @@ public class RegisterUserController {
             request.getPassword()
             );
 
-        UserResponse userResponse = ApiMapper.from(register.execute(command));
+        UserResponse userResponse = ApiMapper.toUserResponse(register.execute(command));
         return ResponseEntity
         .status(HttpStatus.CREATED)
         .body(new ApiResponse<>(true, "Register success", userResponse));

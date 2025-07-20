@@ -13,7 +13,10 @@ public class AuthUser {
     private String password;
     private Role role;
 
-    public void updateEmail (String email){
-        this.email = email;
+    public void updateEmail (String newEmail){
+        this.email = newEmail;
+    }
+    public void updatePassword(String newPassword){
+        this.password = newPassword;
     }
 }

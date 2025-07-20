@@ -21,7 +21,7 @@ public class GetCurrentUserController {
 
     @PostMapping("/me")
     public ResponseEntity<ApiResponse<UserResponse>> me() {
-        UserResponse response = ApiMapper.from(getCurrentUser.execute());
+        UserResponse response = ApiMapper.toUserResponse(getCurrentUser.execute());
         return ResponseEntity.ok(new ApiResponse<>(true, "Get user success", response));
     }
 }
