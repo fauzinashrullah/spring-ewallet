@@ -13,7 +13,7 @@ import com.fauzi.ewallet.user.application.command.UpdateCommand;
 import com.fauzi.ewallet.user.application.result.UserResult;
 import com.fauzi.ewallet.user.application.usecase.UpdateUserUseCase;
 import com.fauzi.ewallet.user.domain.model.User;
-import com.fauzi.ewallet.user.domain.repository.UserProfileRepository;
+import com.fauzi.ewallet.user.domain.repository.UsersRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UpdateUserService implements UpdateUserUseCase {
 
-    private final UserProfileRepository repository;
+    private final UsersRepository repository;
     private final UpdateEmailUseCase updateEmailUseCase;
 
     public UserResult execute (UpdateCommand command){

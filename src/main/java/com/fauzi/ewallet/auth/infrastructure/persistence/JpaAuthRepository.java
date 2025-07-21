@@ -1,5 +1,6 @@
 package com.fauzi.ewallet.auth.infrastructure.persistence;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,5 +33,10 @@ public class JpaAuthRepository implements AuthRepository {
     @Override
     public void save(AuthUser user){
         authRepo.save(AuthMapper.toEntity(user));
+    }
+
+    @Override
+    public List<AuthUser> findAllAuth (){
+        return authRepo.findAll().stream().map(AuthMapper::toDomain).toList();
     }
 }

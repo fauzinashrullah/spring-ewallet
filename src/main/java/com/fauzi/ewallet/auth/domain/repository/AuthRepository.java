@@ -1,5 +1,6 @@
 package com.fauzi.ewallet.auth.domain.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -9,4 +10,5 @@ public interface AuthRepository {
     Optional<AuthUser> findByEmail(String email);
     Optional<AuthUser> findById(UUID id);
     void save(AuthUser authUser);
+    List<AuthUser> findAllAuth ();
 }

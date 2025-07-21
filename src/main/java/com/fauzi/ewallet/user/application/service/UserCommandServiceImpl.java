@@ -9,7 +9,7 @@ import com.fauzi.ewallet.user.application.result.UserResult;
 import com.fauzi.ewallet.user.application.usecase.UserCommandService;
 import com.fauzi.ewallet.user.application.usecase.UserQueryService;
 import com.fauzi.ewallet.user.domain.model.User;
-import com.fauzi.ewallet.user.domain.repository.UserProfileRepository;
+import com.fauzi.ewallet.user.domain.repository.UsersRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserCommandServiceImpl implements UserCommandService, UserQueryService{
     
-    private final UserProfileRepository repository;
+    private final UsersRepository repository;
 
     public void createProfile (UUID authUserId, String fullName){
         User entity = new User(authUserId, fullName);
