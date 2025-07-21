@@ -3,11 +3,11 @@ package com.fauzi.ewallet.auth.web.mapper;
 import com.fauzi.ewallet.auth.application.command.UpdatePasswordCommand;
 import com.fauzi.ewallet.auth.application.result.UserAuthResult;
 import com.fauzi.ewallet.auth.web.dto.request.UpdatePasswordRequest;
-import com.fauzi.ewallet.auth.web.dto.response.UserResponse;
+import com.fauzi.ewallet.auth.web.dto.response.AuthUserResponse;
 
 public class ApiMapper {
-    public static UserResponse toUserResponse (UserAuthResult command){
-        return new UserResponse(command.name(), command.email());
+    public static AuthUserResponse toUserResponse (UserAuthResult command){
+        return new AuthUserResponse(command.name(), command.email());
     }
 
     public static UpdatePasswordCommand toUpdatePasswordCommand(UpdatePasswordRequest request){
