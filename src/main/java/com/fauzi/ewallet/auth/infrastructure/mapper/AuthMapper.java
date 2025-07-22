@@ -5,15 +5,10 @@ import com.fauzi.ewallet.auth.infrastructure.persistence.AuthEntity;
 
 public class AuthMapper {
     public static AuthUser toDomain(AuthEntity e){
-        return new AuthUser(e.getId(), e.getEmail(), e.getPassword(), e.getRole());
+        return new AuthUser(e.getId(), e.getEmail(), e.getPassword(), e.getRole(), e.isActive(), e.getDeletedAt());
     }
     
     public static AuthEntity toEntity(AuthUser u){
-        AuthEntity entity = new AuthEntity();
-        entity.setId(u.getId());
-        entity.setEmail(u.getEmail());
-        entity.setPassword(u.getPassword());
-        entity.setRole(u.getRole());
-        return entity;
+        return new AuthEntity(u.getId(), u.getEmail(), u.getPassword(), u.getRole(), u.isActive(), u.getDeletedAt());
     }
 }

@@ -11,6 +11,7 @@ import com.fauzi.ewallet.auth.domain.model.AuthUser;
 import com.fauzi.ewallet.auth.domain.repository.AuthRepository;
 import com.fauzi.ewallet.auth.domain.repository.PasswordHasher;
 import com.fauzi.ewallet.auth.domain.repository.RefreshTokenRepository;
+import com.fauzi.ewallet.shared.exception.NotFoundException;
 import com.fauzi.ewallet.shared.exception.UnauthorizedException;
 import com.fauzi.ewallet.shared.security.JwtTokenProvider;
 
@@ -31,6 +32,10 @@ public class LoginService implements LoginUseCase{
         if (!passwordHasher.verify(query.password(), authUser.getPassword())){
             throw new UnauthorizedException("Invalid email or password");
         }
+        if (!authUser.isActive()){
+            throw new NotFoundException("User not found");
+        }
+        System.out.println(authUser.isActive());
         
         String accessToken = jwt.generateToken(authUser.getId(), authUser.getEmail(), authUser.getRole().toString());
 
