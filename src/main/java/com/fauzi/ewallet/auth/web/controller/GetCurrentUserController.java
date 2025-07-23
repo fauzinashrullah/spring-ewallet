@@ -1,7 +1,7 @@
 package com.fauzi.ewallet.auth.web.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +19,7 @@ public class GetCurrentUserController {
     
     private final GetCurrentUserUseCase getCurrentUser;
 
-    @PostMapping("/me")
+    @GetMapping("/me")
     public ResponseEntity<ApiResponse<AuthUserResponse>> me() {
         AuthUserResponse response = ApiMapper.toUserResponse(getCurrentUser.execute());
         return ResponseEntity.ok(new ApiResponse<>(true, "Get user success", response));

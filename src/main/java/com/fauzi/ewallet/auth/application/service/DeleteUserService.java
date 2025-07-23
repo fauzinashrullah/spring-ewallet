@@ -31,6 +31,7 @@ public class DeleteUserService implements DeleteUserUseCase{
             throw new NotFoundException("User not found");
         }
         authUser.deactivate();
+        
         repository.save(authUser);
         logoutService.execute(authHeader);
     }
