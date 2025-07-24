@@ -14,5 +14,6 @@ public class UserEntity {
     @Id
     private UUID authUserId;
     private String fullname;
+    private String phoneNumber;
     
 }

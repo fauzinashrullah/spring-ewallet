@@ -28,6 +28,7 @@ public class RegisterUserController {
     public ResponseEntity<ApiResponse<AuthUserResponse>> register(@Valid @RequestBody RegisterRequest request) {
         RegisterCommand command = new RegisterCommand(
             request.getName(), 
+            request.getPhoneNumber(),
             request.getEmail(), 
             request.getPassword()
             );

@@ -37,7 +37,7 @@ public class RegisterService implements RegisterUseCase{
         AuthUser authUser = new AuthUser(userId, command.email(), password, role);
         authRepository.save(authUser);
 
-        userCommandServiceImpl.createProfile(userId, command.name());
+        userCommandServiceImpl.createProfile(userId, command.name(), command.phoneNumber());
         String name = userQueryService.findByAuthUserId(userId).fullName();
         return new UserAuthResult(name, authUser.getEmail());
     }

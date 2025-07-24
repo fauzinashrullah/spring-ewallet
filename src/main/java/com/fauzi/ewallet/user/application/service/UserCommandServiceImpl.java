@@ -19,8 +19,8 @@ public class UserCommandServiceImpl implements UserCommandService, UserQueryServ
     
     private final UsersRepository repository;
 
-    public void createProfile (UUID authUserId, String fullName){
-        User entity = new User(authUserId, fullName);
+    public void createProfile (UUID authUserId, String fullName, String phoneNumber){
+        User entity = new User(authUserId, fullName, phoneNumber);
         repository.save(entity);
     }
 

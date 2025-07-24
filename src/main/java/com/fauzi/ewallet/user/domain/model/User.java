@@ -10,6 +10,7 @@ import lombok.Getter;
 public class User {
     private UUID authUserId;
     private String fullName;
+    private String phoneNumber;
 
     public void setName (String name){
         this.fullName = name;
