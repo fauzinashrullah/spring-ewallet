@@ -7,7 +7,6 @@ import com.fauzi.ewallet.shared.common.dto.ApiResponse;
 import com.fauzi.ewallet.user.application.usecase.UpdateUserUseCase;
 import com.fauzi.ewallet.user.web.dto.request.UpdateUserRequest;
 import com.fauzi.ewallet.user.web.dto.response.UpdateUserResponse;
-import com.fauzi.ewallet.user.web.dto.response.UserResponse;
 import com.fauzi.ewallet.user.web.mapper.UserWebMapper;
 
 import lombok.RequiredArgsConstructor;

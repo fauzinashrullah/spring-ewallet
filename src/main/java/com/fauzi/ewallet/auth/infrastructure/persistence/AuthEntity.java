@@ -25,4 +25,5 @@ public class AuthEntity {
     private Role role;
     private boolean isActive = true;
     private LocalDateTime deletedAt;
+    private LocalDateTime createdAt;
 }

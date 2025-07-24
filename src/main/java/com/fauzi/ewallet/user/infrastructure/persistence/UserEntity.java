@@ -13,6 +13,6 @@ import lombok.Data;
 public class UserEntity {
     @Id
     private UUID authUserId;
-    private String fullName;
+    private String fullname;
     
 }

@@ -15,12 +15,14 @@ public class AuthUser {
     private Role role;
     private boolean isActive = true;
     private LocalDateTime deletedAt;
+    private LocalDateTime createdAt;
 
     public AuthUser (UUID id, String email, String password, Role role){
         this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.createdAt = LocalDateTime.now();
     }
 
     public void updateEmail (String newEmail){

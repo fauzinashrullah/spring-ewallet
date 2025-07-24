@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class UpdateUserRequest {
     //validasi 
     private String name;
+    
 }

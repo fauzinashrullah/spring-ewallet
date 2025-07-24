@@ -5,13 +5,13 @@ import com.fauzi.ewallet.user.infrastructure.persistence.UserEntity;
 
 public class UserMapper {
     public static User toDomain(UserEntity e){
-        return new User(e.getAuthUserId(), e.getFullName());
+        return new User(e.getAuthUserId(), e.getFullname());
     }
     
     public static UserEntity toEntity(User u){
         UserEntity user = new UserEntity();
         user.setAuthUserId(u.getAuthUserId());
-        user.setFullName(u.getFullName());
+        user.setFullname(u.getFullName());
         return user;
     }
 
