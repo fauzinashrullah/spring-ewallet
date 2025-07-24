@@ -9,6 +9,7 @@ import com.fauzi.ewallet.user.web.dto.request.UpdateUserRequest;
 import com.fauzi.ewallet.user.web.dto.response.UpdateUserResponse;
 import com.fauzi.ewallet.user.web.mapper.UserWebMapper;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ public class UpdateUserController {
     private final UpdateUserUseCase updateUserUseCase;
 
     @PutMapping("/me")
-    public ResponseEntity<ApiResponse<UpdateUserResponse>> updateUser(@RequestBody UpdateUserRequest request) {
+    public ResponseEntity<ApiResponse<UpdateUserResponse>> updateUser(@Valid @RequestBody UpdateUserRequest request) {
         UpdateUserResponse response = UserWebMapper.toUpdateResponse(updateUserUseCase.execute(UserWebMapper.toCommand(request)));
         return ResponseEntity.ok(new ApiResponse<>(true, "Update user success", response));
     }

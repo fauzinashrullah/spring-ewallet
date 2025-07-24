@@ -8,6 +8,7 @@ import com.fauzi.ewallet.auth.web.dto.request.UpdatePasswordRequest;
 import com.fauzi.ewallet.auth.web.mapper.ApiMapper;
 import com.fauzi.ewallet.shared.common.dto.ApiResponse;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class UpdatePasswordController {
     private final UpdatePasswordUseCase updatePassword;
 
     @PutMapping("/password")
-    public ResponseEntity<ApiResponse<?>> updatePassword(@RequestBody UpdatePasswordRequest request) {
+    public ResponseEntity<ApiResponse<?>> updatePassword(@Valid @RequestBody UpdatePasswordRequest request) {
         updatePassword.execute(ApiMapper.toUpdatePasswordCommand(request));
         return ResponseEntity.ok(new ApiResponse<>(true, "Update password success", Map.of()));
     }
