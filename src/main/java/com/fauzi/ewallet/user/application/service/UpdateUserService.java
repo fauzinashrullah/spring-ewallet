@@ -32,6 +32,6 @@ public class UpdateUserService implements UpdateUserUseCase {
         
         user.setName(command.name());
         repository.save(user);
-        return new UpdateUserResult(userId, user.getFullName());
+        return new UpdateUserResult(userId, user.getFullname());
     }
 }

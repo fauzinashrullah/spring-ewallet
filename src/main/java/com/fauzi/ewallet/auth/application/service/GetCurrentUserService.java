@@ -27,7 +27,7 @@ public class GetCurrentUserService implements GetCurrentUserUseCase{
         UUID userId = userDetails.getId();
         UserResult user = userQueryService.findByAuthUserId(userId);
 
-        UserAuthResult response = new UserAuthResult(user.fullName(), userDetails.getEmail());
+        UserAuthResult response = new UserAuthResult(user.fullname(), userDetails.getEmail());
         return response;
     }
 }

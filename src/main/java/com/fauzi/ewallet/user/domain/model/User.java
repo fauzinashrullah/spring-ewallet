@@ -9,10 +9,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class User {
     private UUID authUserId;
-    private String fullName;
+    private String fullname;
+    private String username;
     private String phoneNumber;
 
     public void setName (String name){
-        this.fullName = name;
+        this.fullname = name;
     }
 }

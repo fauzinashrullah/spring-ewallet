@@ -19,14 +19,16 @@ public class UserCommandServiceImpl implements UserCommandService, UserQueryServ
     
     private final UsersRepository repository;
 
-    public void createProfile (UUID authUserId, String fullName, String phoneNumber){
-        User entity = new User(authUserId, fullName, phoneNumber);
+    @Override
+    public void createProfile (UUID authUserId, String fullname, String username, String phoneNumber){
+        User entity = new User(authUserId, fullname, username, phoneNumber);
         repository.save(entity);
     }
 
+    @Override
     public UserResult findByAuthUserId(UUID id){
         User user = repository.findByAuthUserId(id)
             .orElseThrow(() -> new NotFoundException("User not found"));
-        return new UserResult(user.getAuthUserId(), user.getFullName(), null);
+        return new UserResult(user.getAuthUserId(), user.getFullname(), user.getUsername(), null);
     }
 }

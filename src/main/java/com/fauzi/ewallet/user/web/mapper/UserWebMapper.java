@@ -13,7 +13,7 @@ public class UserWebMapper {
     }
 
     public static UserResponse toResponse(UserResult result){
-        return new UserResponse(result.authUserId().toString(), result.fullName(), result.email());
+        return new UserResponse(result.authUserId().toString(), result.fullname(), result.email());
     }
 
     public static UpdateUserResponse toUpdateResponse(UpdateUserResult result){

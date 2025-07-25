@@ -15,6 +15,10 @@ public class RegisterRequest {
     @Size(min = 3, message = "Name must be at least 3 characters long")
     private String name;
 
+    @NotBlank(message = "Username must not be blank")
+    @Size(min = 8, message = "Name must be at least 8 characters long")
+    private String username;
+
     @NotBlank(message = "Phone number must not be blank")
     @Pattern(regexp = "^\\+?[0-9]{9,15}$", message = "Invalid phone number format")
     private String phoneNumber;
