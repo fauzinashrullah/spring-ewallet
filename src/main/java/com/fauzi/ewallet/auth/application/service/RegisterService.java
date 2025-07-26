@@ -11,7 +11,7 @@ import com.fauzi.ewallet.auth.domain.model.AuthUser;
 import com.fauzi.ewallet.auth.domain.model.Role;
 import com.fauzi.ewallet.auth.domain.repository.AuthRepository;
 import com.fauzi.ewallet.auth.domain.repository.PasswordHasher;
-import com.fauzi.ewallet.shared.exception.EmailAlreadyExistsException;
+import com.fauzi.ewallet.shared.exception.AlreadyExistsException;
 import com.fauzi.ewallet.user.application.service.UserCommandServiceImpl;
 import com.fauzi.ewallet.user.application.usecase.UserQueryService;
 
@@ -27,7 +27,7 @@ public class RegisterService implements RegisterUseCase{
 
     public UserAuthResult execute(RegisterCommand command){
         if (authRepository.findByEmail(command.email()).isPresent()){
-            throw new EmailAlreadyExistsException();
+            throw new AlreadyExistsException("Email is already in use");
         }
 
         String password = passwordHasher.hash(command.password());

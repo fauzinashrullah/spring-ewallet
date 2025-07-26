@@ -27,6 +27,11 @@ public class JpaUserProfileRepository implements UsersRepository{
        
     }
 
+    public Optional<User> findByUsername(String username){
+        return repository.findByUsername(username)
+            .map(UserMapper::toDomain);
+    }
+
     public List<User> findAllUsers(){
         return repository.findAll().stream().map(UserMapper::toDomain).toList();
     }

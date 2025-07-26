@@ -9,4 +9,5 @@ import com.fauzi.ewallet.user.infrastructure.persistence.UserEntity;
 
 public interface SpringDataUserRepository extends JpaRepository<UserEntity, UUID>{
     Optional<UserEntity> findByAuthUserId(UUID id);
+    Optional<UserEntity> findByUsername(String username);
 }

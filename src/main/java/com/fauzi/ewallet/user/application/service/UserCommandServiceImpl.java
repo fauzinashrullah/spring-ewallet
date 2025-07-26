@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.fauzi.ewallet.shared.exception.AlreadyExistsException;
 import com.fauzi.ewallet.shared.exception.NotFoundException;
 import com.fauzi.ewallet.user.application.result.UserResult;
 import com.fauzi.ewallet.user.application.usecase.UserCommandService;
@@ -21,6 +22,9 @@ public class UserCommandServiceImpl implements UserCommandService, UserQueryServ
 
     @Override
     public void createProfile (UUID authUserId, String fullname, String username, String phoneNumber){
+        if (repository.findByUsername(username).isPresent()){
+            throw new AlreadyExistsException("Username is already in use");
+        }
         User entity = new User(authUserId, fullname, username, phoneNumber);
         repository.save(entity);
     }
