@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fauzi.ewallet.auth.application.usecase.LogoutUseCase;
+import com.fauzi.ewallet.auth.application.usecase.AuthUseCase;
 import com.fauzi.ewallet.shared.common.dto.ApiResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -18,11 +18,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LogoutUserController {
     
-    private final LogoutUseCase logout;
+    private final AuthUseCase authUseCase;
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<?>> logout(@RequestHeader("Authorization") String authHeader) {
-        logout.execute(authHeader);
+        authUseCase.logout(authHeader);
         return ResponseEntity.ok(new ApiResponse<>(true, "Logout success", Map.of()));
     }
 }

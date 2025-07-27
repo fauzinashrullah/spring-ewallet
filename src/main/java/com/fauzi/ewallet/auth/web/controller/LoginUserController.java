@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fauzi.ewallet.auth.application.command.LoginCommand;
 import com.fauzi.ewallet.auth.application.result.TokenResult;
-import com.fauzi.ewallet.auth.application.usecase.LoginUseCase;
+import com.fauzi.ewallet.auth.application.usecase.AuthUseCase;
 import com.fauzi.ewallet.auth.web.dto.request.LoginRequest;
 import com.fauzi.ewallet.auth.web.dto.response.TokenResponse;
 import com.fauzi.ewallet.auth.web.helper.CookieUtil;
@@ -24,12 +24,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginUserController {
     
-    private final LoginUseCase login;
+    private final AuthUseCase authUseCase;
        
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<TokenResponse>> login(@Valid @RequestBody LoginRequest request) {
         LoginCommand command = new LoginCommand(request.getEmail(), request.getPassword());
-        TokenResult token = login.execute(command);
+        TokenResult token = authUseCase.login(command);
         ResponseCookie cookie = CookieUtil.createRefreshTokenCookie(token);
 
         TokenResponse response = new TokenResponse(token.accessToken());

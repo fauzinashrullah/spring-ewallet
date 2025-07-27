@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fauzi.ewallet.auth.application.result.TokenResult;
-import com.fauzi.ewallet.auth.application.usecase.RefreshUseCase;
+import com.fauzi.ewallet.auth.application.usecase.AuthUseCase;
 import com.fauzi.ewallet.auth.web.dto.response.TokenResponse;
 import com.fauzi.ewallet.auth.web.helper.CookieUtil;
 import com.fauzi.ewallet.shared.common.dto.ApiResponse;
@@ -21,11 +21,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RefreshController {
     
-    private final RefreshUseCase refresh;
+    private final AuthUseCase authUseCase;
     
     @PostMapping("/refresh")
     public ResponseEntity<ApiResponse<TokenResponse>> refresh(@CookieValue("refresh_token") String refreshToken) {
-        TokenResult token = refresh.execute(refreshToken);
+        TokenResult token = authUseCase.refresh(refreshToken);
         ResponseCookie cookie = CookieUtil.createRefreshTokenCookie(token);
 
         TokenResponse response = new TokenResponse(token.accessToken());

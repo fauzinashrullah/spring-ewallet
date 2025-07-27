@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class DeleteUserService implements DeleteUserUseCase{
 
     private final AuthRepository repository;
-    private final LogoutService logoutService;
+    private final AuthService authService;
 
     public void execute (String authHeader){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -33,6 +33,6 @@ public class DeleteUserService implements DeleteUserUseCase{
         authUser.deactivate();
         
         repository.save(authUser);
-        logoutService.execute(authHeader);
+        authService.logout(authHeader);
     }
 }
