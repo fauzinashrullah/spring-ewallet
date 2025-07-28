@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fauzi.ewallet.auth.application.usecase.GetCurrentUserUseCase;
+import com.fauzi.ewallet.auth.application.usecase.UserAuthUseCase;
 import com.fauzi.ewallet.auth.web.dto.response.AuthUserResponse;
 import com.fauzi.ewallet.auth.web.mapper.ApiMapper;
 import com.fauzi.ewallet.shared.common.dto.ApiResponse;
@@ -17,11 +17,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GetCurrentUserController {
     
-    private final GetCurrentUserUseCase getCurrentUser;
+    private final UserAuthUseCase userAuth;
 
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<AuthUserResponse>> me() {
-        AuthUserResponse response = ApiMapper.toUserResponse(getCurrentUser.execute());
+        AuthUserResponse response = ApiMapper.toUserResponse(userAuth.getCurrent());
         return ResponseEntity.ok(new ApiResponse<>(true, "Get user success", response));
     }
 }

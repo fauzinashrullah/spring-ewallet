@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.fauzi.ewallet.auth.application.usecase.GetAllAuthUseCase;
+import com.fauzi.ewallet.auth.application.usecase.UserAuthUseCase;
 import com.fauzi.ewallet.shared.exception.NotFoundException;
 import com.fauzi.ewallet.user.application.result.UserResult;
 import com.fauzi.ewallet.user.application.usecase.GetAllUsersUseCase;
@@ -17,11 +17,11 @@ import lombok.RequiredArgsConstructor;
 public class GetAllUsersService implements GetAllUsersUseCase {
 
     private final UsersRepository usersRepository;
-    private final GetAllAuthUseCase getEmail;
+    private final UserAuthUseCase userAuth;
     
     public List<UserResult> execute (){
         return usersRepository.findAllUsers().stream().map(user -> {
-            String userEmail = getEmail.execute().stream()
+            String userEmail = userAuth.getAllAuth().stream()
                 .filter(auth -> auth.id().equals(user.getAuthUserId()))
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("User not found"))
