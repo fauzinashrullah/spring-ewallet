@@ -34,16 +34,11 @@ public class AuthService implements AuthUseCase{
         AuthUser authUser = authRepository.findByEmail(query.email())
             .orElseThrow(() -> new UnauthorizedException("Invalid email or password"));
 
-        if (!passwordHasher.verify(query.password(), authUser.getPassword())){
+        if (!passwordHasher.verify(query.password(), authUser.getPassword()) && !authUser.isActive()){
             throw new UnauthorizedException("Invalid email or password");
         }
-        if (!authUser.isActive()){
-            throw new NotFoundException("User not found");
-        }
-        System.out.println(authUser.isActive());
         
         String accessToken = jwt.generateToken(authUser.getId(), authUser.getEmail(), authUser.getRole().toString());
-
         String refreshToken = jwt.generateRefreshToken(authUser.getId());
 
         Duration ttl = jwt.getExpirationDuration(refreshToken);
