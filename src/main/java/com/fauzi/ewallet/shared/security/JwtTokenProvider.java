@@ -97,10 +97,14 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(String header) {
-        if (header != null && header.startsWith("Bearer ")) {
-            return header.substring(7);
+        if (header == null || !header.startsWith("Bearer ")) {
+            throw new UnauthorizedException("Invalid token format");
         }
-        throw new UnauthorizedException("Invalid token format");
+        String token = header.substring(7);
+        if (!validateToken(token)){
+            throw new UnauthorizedException("Invalid token format");
+        }
+        return token;
     }
 
     public String getRole(String token) {

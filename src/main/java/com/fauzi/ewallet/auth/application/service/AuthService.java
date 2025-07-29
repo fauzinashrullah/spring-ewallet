@@ -50,8 +50,13 @@ public class AuthService implements AuthUseCase{
     @Override
     public void logout(String authHeader) {
         String token = jwt.resolveToken(authHeader);
+        if (blacklistRepo.isBlacklisted(token)){
+            throw new UnauthorizedException("Invalid access token");
+        }
+        
         Duration ttl = jwt.getExpirationDuration(token);
         UUID userId = jwt.getUserIdFromToken(token);
+
         blacklistRepo.blacklist(token, ttl);
         refreshTokenRepository.delete(userId);
     }
