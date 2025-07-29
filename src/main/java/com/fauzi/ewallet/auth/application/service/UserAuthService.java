@@ -19,7 +19,7 @@ import com.fauzi.ewallet.shared.exception.NotFoundException;
 import com.fauzi.ewallet.shared.exception.UnauthorizedException;
 import com.fauzi.ewallet.shared.security.UserDetailsImpl;
 import com.fauzi.ewallet.user.application.result.UserResult;
-import com.fauzi.ewallet.user.application.usecase.UserQueryService;
+import com.fauzi.ewallet.user.application.usecase.UserQueryUseCase;
 
 import lombok.AllArgsConstructor;
 
@@ -29,7 +29,7 @@ public class UserAuthService implements UserAuthUseCase{
     
     private final AuthRepository repository;
     private final AuthService authService;
-    private final UserQueryService userQueryService;
+    private final UserQueryUseCase userQueryService;
     private final PasswordHasher passwordHasher;
 
     @Override

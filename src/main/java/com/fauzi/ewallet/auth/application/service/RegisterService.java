@@ -12,8 +12,8 @@ import com.fauzi.ewallet.auth.domain.model.Role;
 import com.fauzi.ewallet.auth.domain.repository.AuthRepository;
 import com.fauzi.ewallet.auth.domain.repository.PasswordHasher;
 import com.fauzi.ewallet.shared.exception.AlreadyExistsException;
-import com.fauzi.ewallet.user.application.service.UserCommandServiceImpl;
-import com.fauzi.ewallet.user.application.usecase.UserQueryService;
+import com.fauzi.ewallet.user.application.usecase.UserCommandUseCase;
+import com.fauzi.ewallet.user.application.usecase.UserQueryUseCase;
 
 import lombok.AllArgsConstructor;
 
@@ -22,23 +22,26 @@ import lombok.AllArgsConstructor;
 public class RegisterService implements RegisterUseCase{
     private final AuthRepository authRepository;
     private final PasswordHasher passwordHasher;
-    private final UserQueryService userQueryService;
-    private final UserCommandServiceImpl userCommandServiceImpl;
+    private final UserQueryUseCase userQuery;
+    private final UserCommandUseCase userCommand;
 
     public UserAuthResult execute(RegisterCommand command){
         if (authRepository.findByEmail(command.email()).isPresent()){
             throw new AlreadyExistsException("Email is already in use");
         }
+        if (userQuery.existByUsername(command.username())){
+            throw new AlreadyExistsException("Username is already in use");
+        }
 
         String password = passwordHasher.hash(command.password());
         UUID userId = UUID.randomUUID();
-
         Role role = Role.ROLE_USER;
+
         AuthUser authUser = new AuthUser(userId, command.email(), password, role);
         authRepository.save(authUser);
 
-        userCommandServiceImpl.createProfile(userId, command.name(), command.username(), command.phoneNumber());
-        String name = userQueryService.findByAuthUserId(userId).fullname();
+        userCommand.createProfile(userId, command.name(), command.username(), command.phoneNumber());
+        String name = userQuery.findByAuthUserId(userId).fullname();
         return new UserAuthResult(name, authUser.getEmail());
     }
 }
