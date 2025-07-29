@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fauzi.ewallet.auth.application.command.RegisterCommand;
 import com.fauzi.ewallet.auth.application.usecase.RegisterUseCase;
 import com.fauzi.ewallet.auth.web.dto.request.RegisterRequest;
-import com.fauzi.ewallet.auth.web.dto.response.AuthUserResponse;
+import com.fauzi.ewallet.auth.web.dto.response.UserProfileResponse;
 import com.fauzi.ewallet.auth.web.mapper.ApiMapper;
 import com.fauzi.ewallet.shared.common.dto.ApiResponse;
 
@@ -25,7 +25,7 @@ public class RegisterUserController {
     private final RegisterUseCase register;
     
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<AuthUserResponse>> register(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<ApiResponse<UserProfileResponse>> register(@Valid @RequestBody RegisterRequest request) {
         RegisterCommand command = new RegisterCommand(
             request.getName(), 
             request.getUsername(),
@@ -34,7 +34,7 @@ public class RegisterUserController {
             request.getPassword()
             );
 
-        AuthUserResponse userResponse = ApiMapper.toUserResponse(register.execute(command));
+        UserProfileResponse userResponse = ApiMapper.toResponse(register.execute(command));
         return ResponseEntity
         .status(HttpStatus.CREATED)
         .body(new ApiResponse<>(true, "Register success", userResponse));
