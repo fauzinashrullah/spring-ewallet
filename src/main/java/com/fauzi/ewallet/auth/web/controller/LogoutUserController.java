@@ -22,6 +22,7 @@ public class LogoutUserController {
 
     @PostMapping("/logout")
     public ResponseEntity<ApiResponse<?>> logout(@RequestHeader("Authorization") String authHeader) {
+        
         authUseCase.logout(authHeader);
         return ResponseEntity.ok(new ApiResponse<>(true, "Logout success", Map.of()));
     }

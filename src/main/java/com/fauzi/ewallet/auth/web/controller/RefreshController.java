@@ -25,6 +25,7 @@ public class RefreshController {
     
     @PostMapping("/refresh")
     public ResponseEntity<ApiResponse<TokenResponse>> refresh(@CookieValue("refresh_token") String refreshToken) {
+        
         TokenResult token = authUseCase.refresh(refreshToken);
         ResponseCookie cookie = CookieUtil.createRefreshTokenCookie(token);
 

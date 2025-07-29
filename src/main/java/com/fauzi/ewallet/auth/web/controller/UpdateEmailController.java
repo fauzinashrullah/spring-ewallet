@@ -24,6 +24,7 @@ public class UpdateEmailController {
 
     @PutMapping("/email")
     public ResponseEntity<ApiResponse<?>> updateEmail (@Valid @RequestBody UpdateEmailRequest request){
+        
         userAuth.updateEmail(request.getEmail());
         return ResponseEntity.ok(new ApiResponse<>(true, "Update email success", Map.of()));
     }
