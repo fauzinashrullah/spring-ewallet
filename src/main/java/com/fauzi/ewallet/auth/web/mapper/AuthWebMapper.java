@@ -3,7 +3,7 @@ package com.fauzi.ewallet.auth.web.mapper;
 import com.fauzi.ewallet.auth.application.command.LoginCommand;
 import com.fauzi.ewallet.auth.application.command.RegisterCommand;
 import com.fauzi.ewallet.auth.application.command.UpdatePasswordCommand;
-import com.fauzi.ewallet.auth.application.result.RegisterResult;
+import com.fauzi.ewallet.auth.application.result.UserDataResult;
 import com.fauzi.ewallet.auth.application.result.UserAuthResult;
 import com.fauzi.ewallet.auth.web.dto.request.LoginRequest;
 import com.fauzi.ewallet.auth.web.dto.request.RegisterRequest;
@@ -20,7 +20,7 @@ public class AuthWebMapper {
             );
     }
 
-    public static UserProfileResponse toResponse (RegisterResult res){
+    public static UserProfileResponse toResponse (UserDataResult res){
         return new UserProfileResponse(
             res.name(), 
             res.username(), 

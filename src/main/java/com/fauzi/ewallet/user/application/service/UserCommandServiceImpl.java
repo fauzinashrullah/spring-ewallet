@@ -35,7 +35,7 @@ public class UserCommandServiceImpl implements UserCommandUseCase, UserQueryUseC
     public UserResult findByAuthUserId(UUID id){
         User user = repository.findByAuthUserId(id)
             .orElseThrow(() -> new NotFoundException("User not found"));
-        return new UserResult(user.getAuthUserId(), user.getFullname(), user.getUsername(), null);
+        return new UserResult(user.getAuthUserId(), user.getFullname(), user.getUsername(), user.getPhoneNumber(), null);
     }
 
     @Override 

@@ -5,10 +5,10 @@ import java.util.UUID;
 
 import com.fauzi.ewallet.auth.application.command.UpdatePasswordCommand;
 import com.fauzi.ewallet.auth.application.result.GetAuthResult;
-import com.fauzi.ewallet.auth.application.result.UserAuthResult;
+import com.fauzi.ewallet.auth.application.result.UserDataResult;
 
 public interface UserAuthUseCase {
-    UserAuthResult getCurrent();
+    UserDataResult getCurrent();
     String getAuthEmail (UUID id);
     void updateEmail (String email);
     void updatePassword (UpdatePasswordCommand command);

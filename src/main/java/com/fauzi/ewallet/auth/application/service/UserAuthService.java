@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.fauzi.ewallet.auth.application.command.UpdatePasswordCommand;
 import com.fauzi.ewallet.auth.application.mapper.AuthAppMapper;
 import com.fauzi.ewallet.auth.application.result.GetAuthResult;
-import com.fauzi.ewallet.auth.application.result.UserAuthResult;
+import com.fauzi.ewallet.auth.application.result.UserDataResult;
 import com.fauzi.ewallet.auth.application.usecase.UserAuthUseCase;
 import com.fauzi.ewallet.auth.domain.model.AuthUser;
 import com.fauzi.ewallet.auth.domain.repository.AuthRepository;
@@ -33,15 +33,14 @@ public class UserAuthService implements UserAuthUseCase{
     private final PasswordHasher passwordHasher;
 
     @Override
-    public UserAuthResult getCurrent (){
+    public UserDataResult getCurrent (){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         UUID userId = userDetails.getId();
         UserResult user = userQueryService.findByAuthUserId(userId);
-
-        UserAuthResult response = new UserAuthResult(user.fullname(), userDetails.getEmail());
-        return response;
+        
+        return new UserDataResult(user.fullname(), user.username(), user.phoneNumber(), userDetails.getEmail());
     }
 
     @Override

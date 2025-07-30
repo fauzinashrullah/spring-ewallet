@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.fauzi.ewallet.auth.application.command.RegisterCommand;
-import com.fauzi.ewallet.auth.application.result.RegisterResult;
+import com.fauzi.ewallet.auth.application.result.UserDataResult;
 import com.fauzi.ewallet.auth.application.usecase.RegisterUseCase;
 import com.fauzi.ewallet.auth.domain.model.AuthUser;
 import com.fauzi.ewallet.auth.domain.model.Role;
@@ -26,7 +26,7 @@ public class RegisterService implements RegisterUseCase{
     private final UserQueryUseCase userQuery;
     private final UserCommandUseCase userCommand;
 
-    public RegisterResult execute(RegisterCommand command){
+    public UserDataResult execute(RegisterCommand command){
         if (repository.findByEmail(command.email()).isPresent()){
             throw new AlreadyExistsException("Email is already in use");
         }
@@ -42,6 +42,6 @@ public class RegisterService implements RegisterUseCase{
         repository.save(authUser);
 
         UserProfileResult result = userCommand.createProfile(userId, command.name(), command.username(), command.phoneNumber());
-        return new RegisterResult(result.name(), result.username(), result.phoneNumber(), authUser.getEmail());
+        return new UserDataResult(result.name(), result.username(), result.phoneNumber(), authUser.getEmail());
     }
 }

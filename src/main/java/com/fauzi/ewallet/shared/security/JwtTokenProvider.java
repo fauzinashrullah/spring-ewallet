@@ -102,7 +102,7 @@ public class JwtTokenProvider {
         }
         String token = header.substring(7);
         if (!validateToken(token)){
-            throw new UnauthorizedException("Invalid token format");
+            throw new UnauthorizedException("Invalid access token");
         }
         return token;
     }

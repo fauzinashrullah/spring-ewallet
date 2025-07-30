@@ -26,7 +26,7 @@ public class GetAllUsersService implements GetAllUsersUseCase {
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("User not found"))
                 .email();
-            return new UserResult(user.getAuthUserId(), user.getFullname(), user.getUsername(), userEmail);
+            return new UserResult(user.getAuthUserId(), user.getFullname(), user.getUsername(), user.getPhoneNumber(), userEmail);
         }).toList();
     }
 }
