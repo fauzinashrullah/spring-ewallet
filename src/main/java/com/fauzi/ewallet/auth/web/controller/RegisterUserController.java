@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fauzi.ewallet.auth.application.usecase.RegisterUseCase;
+import com.fauzi.ewallet.auth.application.usecase.AuthUseCase;
 import com.fauzi.ewallet.auth.web.dto.request.RegisterRequest;
 import com.fauzi.ewallet.auth.web.dto.response.UserProfileResponse;
 import com.fauzi.ewallet.auth.web.mapper.AuthWebMapper;
@@ -21,12 +21,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RegisterUserController {
     
-    private final RegisterUseCase register;
+    private final AuthUseCase authUseCase;
     
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<UserProfileResponse>> register(@Valid @RequestBody RegisterRequest request) {
 
-        UserProfileResponse userResponse = AuthWebMapper.toResponse(register.execute(AuthWebMapper.toCommand(request)));
+        UserProfileResponse userResponse = AuthWebMapper.toResponse(authUseCase.register(AuthWebMapper.toCommand(request)));
 
         return ResponseEntity
         .status(HttpStatus.CREATED)
