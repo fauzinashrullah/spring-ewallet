@@ -15,7 +15,7 @@ import com.fauzi.ewallet.auth.domain.repository.RefreshTokenRepository;
 import com.fauzi.ewallet.shared.exception.NotFoundException;
 import com.fauzi.ewallet.shared.exception.UnauthorizedException;
 import com.fauzi.ewallet.shared.security.BlacklistTokenRepository;
-import com.fauzi.ewallet.shared.security.JwtTokenProvider;
+import com.fauzi.ewallet.shared.security.JwtProvider;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +25,7 @@ public class AuthService implements AuthUseCase{
     
     private final AuthRepository authRepository;
     private final PasswordHasher passwordHasher;
-    private final JwtTokenProvider jwt;
+    private final JwtProvider jwt;
     private final RefreshTokenRepository refreshTokenRepository;
     private final BlacklistTokenRepository blacklistRepo;
 

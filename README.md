@@ -4,27 +4,17 @@ A RESTful API for a simple and secure e-wallet system built using **Spring Boot*
 
 Users can register, log in, and manage their wallet (top-up, transfer, view transaction history).  
 Designed to be modular, scalable, and production-ready.
-A RESTful API for a simple and secure e-wallet system built using **Spring Boot** with **DDD + Hexagonal Architecture**.
-
-Users can register, log in, and manage their wallet (top-up, transfer, view transaction history).  
-Designed to be modular, scalable, and production-ready.
 
 ---
 
 ## 📌 Features
 
 - ✅ User registration & login
-- ✅ JWT authentication with refresh token (secure with Redis + Cookie)
+- ✅ JWT authentication with refresh token (Redis + Cookie-based)
 - ✅ Logout with token blacklist
 - ✅ Get current user (`/me`)
-- 🚧 Balance top-up and transfer (in progress)
-- 🚧 Transaction history (in progress)
-- ✅ User registration & login
-- ✅ JWT authentication with refresh token (secure with Redis + Cookie)
-- ✅ Logout with token blacklist
-- ✅ Get current user (`/me`)
-- 🚧 Balance top-up and transfer (in progress)
-- 🚧 Transaction history (in progress)
+- 🚧 Balance top-up & transfer
+- 🚧 Transaction history
 
 ---
 
@@ -32,29 +22,8 @@ Designed to be modular, scalable, and production-ready.
 
 - ✅ Domain-Driven Design (DDD)
 - ✅ Hexagonal (Ports & Adapters) Architecture
-- ✅ Multi-layered (domain, application, infrastructure, web)
-- ✅ Separation of concern & testable design
-
----
-
-## ⚙️ Tech Stack
-
-| Layer      | Tools & Libraries           |
-| ---------- | --------------------------- |
-| Backend    | Java 21, Spring Boot        |
-| Database   | PostgreSQL, Redis           |
-| Security   | Spring Security, JWT        |
-| Validation | Hibernate Validator         |
-| Testing    | JUnit, Mockito (planned)    |
-| Docs       | Swagger / OpenAPI (planned) |
-| Build Tool | Maven                       |
-
-## 🧱 Architecture
-
-- ✅ Domain-Driven Design (DDD)
-- ✅ Hexagonal (Ports & Adapters) Architecture
-- ✅ Multi-layered (domain, application, infrastructure, web)
-- ✅ Separation of concern & testable design
+- ✅ Multi-layered structure (domain, application, infrastructure, web)
+- ✅ Separation of concerns & testable design
 
 ---
 
@@ -76,24 +45,19 @@ Designed to be modular, scalable, and production-ready.
 
 ### ✅ Prerequisites
 
-### ✅ Prerequisites
-
 - Java 21
 - Maven
 - PostgreSQL
-- Redis (for refresh token blacklist)
-- Redis (for refresh token blacklist)
-
----
+- Redis
 
 ---
 
 ### 📦 Setup
 
-<pre>
+```bash
 git clone https://github.com/fauzinashrullah/spring-ewallet
 cd spring-ewallet
-</pre>
+```
 
 ---
 
@@ -110,7 +74,8 @@ spring.redis.host=localhost
 spring.redis.port=6379
 
 jwt.secret=your-very-secret-key
-jwt.expiration=3600
+jwt.expiration=900
+refresh.jwt.expiration=604800
 </pre>
 
 ---
@@ -127,13 +92,33 @@ App will be available at: `http://localhost:8080`
 
 ## 🧪 Sample Endpoints
 
-| Endpoint                | Method | Description                |
-| ----------------------- | ------ | -------------------------- |
-| `/api/v1/auth/register` | POST   | Register new user          |
-| `/api/v1/auth/login`    | POST   | Login and receive tokens   |
-| `/api/v1/auth/logout`   | POST   | Logout and blacklist token |
-| `/api/v1/auth/me`       | POST   | Get current user           |
-| `/api/v1/auth/refresh`  | POST   | Refresh access token       |
+### 🔐 Auth
+
+| Endpoint                | Method | Description                                     |
+| ----------------------- | ------ | ----------------------------------------------- |
+| `/api/v1/auth/register` | POST   | Register new user                               |
+| `/api/v1/auth/login`    | POST   | Generate access token & refresh token           |
+| `/api/v1/auth/logout`   | POST   | Blacklist access token & delete refresh token   |
+| `/api/v1/auth/me`       | GET    | Get user profile from access token              |
+| `/api/v1/auth/refresh`  | POST   | Generate new access token & renew refresh token |
+| `/api/v1/auth/password` | PUT    | Update user password                            |
+| `/api/v1/auth/email`    | PUT    | Update user email                               |
+
+### 👤 User
+
+#### 👥 User-only
+
+| Endpoint           | Method | Description         |
+| ------------------ | ------ | ------------------- |
+| `/api/v1/users/me` | PUT    | Update user profile |
+| `/api/v1/users/me` | DELETE | Soft delete user    |
+
+#### 🛡️ Admin-only
+
+| Endpoint                   | Method | Description            |
+| -------------------------- | ------ | ---------------------- |
+| `/api/v1/admin/users`      | GET    | List all user profiles |
+| `/api/v1/admin/users/{id}` | GET    | Get user detail by ID  |
 
 ---
 
@@ -143,35 +128,23 @@ App will be available at: `http://localhost:8080`
 src/main/java/com/example/ewallet/
 
 ├── auth/
-│   ├── domain/
-│   ├── application/
-│   ├── infrastructure/
-│   └── web/
-│
 ├── user/
-│   ├── domain/
-│   ├── application/
-│   ├── infrastructure/
-│   └── web/
-│
 ├── wallet/
-│   ├── domain/
-│   ├── application/
-│   ├── infrastructure/
-│   └── web/
-│
 ├── transaction/
-│   ├── domain/
-│   ├── application/
-│   ├── infrastructure/
-│   └── web/
-│
 ├── shared/
 │   ├── config/
 │   ├── exception/
 │   ├── security/
 │   └── base/
+
 ```
+
+Each module has its own:
+
+- domain/
+- application/
+- infrastructure/
+- web/
 
 ---
 
