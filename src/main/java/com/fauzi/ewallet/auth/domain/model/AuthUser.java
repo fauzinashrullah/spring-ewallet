@@ -3,6 +3,9 @@ package com.fauzi.ewallet.auth.domain.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import com.fauzi.ewallet.auth.domain.exception.RedundantUpdateException;
+import com.fauzi.ewallet.auth.domain.exception.UserActiveException;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,12 +30,14 @@ public class AuthUser {
     }
 
     public void updateEmail (String newEmail){
+        if (this.email.equals(newEmail)) throw new RedundantUpdateException("Email must be different from the current one.");
         this.email = newEmail;
     }
     public void updatePassword(String newPassword){
         this.password = newPassword;
     }
     public void deactivate(){
+        if (!this.isActive) throw new UserActiveException("User not found");
         this.isActive = false;
         this.deletedAt = LocalDateTime.now();
     }

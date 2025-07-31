@@ -59,7 +59,7 @@ public class UserAuthService implements UserAuthUseCase{
             .orElseThrow(() -> new NotFoundException("User not found"));
 
             if (authUser.getEmail().equals(email)){
-                throw new AlreadyExistsException("Email same");
+                throw new AlreadyExistsException("Email must be different from the current one.");
             }
             if (repository.findByEmail(email).isPresent()){
                 throw new AlreadyExistsException("Email is already in use");
@@ -92,9 +92,9 @@ public class UserAuthService implements UserAuthUseCase{
         UUID userId = userDetails.getId();
         AuthUser authUser =  repository.findById(userId)
             .orElseThrow(() -> new NotFoundException("User not found"));
-        if (!authUser.isActive()){
-            throw new NotFoundException("User not found");
-        }
+        // if (!authUser.isActive()){
+        //     throw new NotFoundException("User not found");
+        // }
         authUser.deactivate();
         
         repository.save(authUser);
