@@ -15,6 +15,7 @@ import com.fauzi.ewallet.auth.application.usecase.UserAuthUseCase;
 import com.fauzi.ewallet.auth.domain.model.AuthUser;
 import com.fauzi.ewallet.auth.domain.repository.AuthRepository;
 import com.fauzi.ewallet.auth.domain.repository.PasswordHasher;
+import com.fauzi.ewallet.shared.exception.AlreadyExistsException;
 import com.fauzi.ewallet.shared.exception.NotFoundException;
 import com.fauzi.ewallet.shared.exception.UnauthorizedException;
 import com.fauzi.ewallet.shared.security.UserDetailsImpl;
@@ -56,6 +57,14 @@ public class UserAuthService implements UserAuthUseCase{
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         AuthUser authUser = repository.findById(userDetails.getId())
             .orElseThrow(() -> new NotFoundException("User not found"));
+
+            if (authUser.getEmail().equals(email)){
+                throw new AlreadyExistsException("Email same");
+            }
+            if (repository.findByEmail(email).isPresent()){
+                throw new AlreadyExistsException("Email is already in use");
+            }
+            
         authUser.updateEmail(email);
         repository.save(authUser);
     }

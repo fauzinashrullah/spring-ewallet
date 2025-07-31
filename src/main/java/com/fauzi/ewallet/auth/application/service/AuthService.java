@@ -63,7 +63,7 @@ public class AuthService implements AuthUseCase{
         AuthUser authUser = repository.findByEmail(query.email())
             .orElseThrow(() -> new UnauthorizedException("Invalid email or password"));
 
-        if (!passwordHasher.verify(query.password(), authUser.getPassword()) && !authUser.isActive()){
+        if (!passwordHasher.verify(query.password(), authUser.getPassword()) || !authUser.isActive()){
             throw new UnauthorizedException("Invalid email or password");
         }
         

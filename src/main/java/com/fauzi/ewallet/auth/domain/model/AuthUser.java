@@ -13,7 +13,7 @@ public class AuthUser {
     private String email;
     private String password;
     private Role role;
-    private boolean isActive = true;
+    private boolean isActive;
     private LocalDateTime deletedAt;
     private LocalDateTime createdAt;
 
@@ -22,6 +22,7 @@ public class AuthUser {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.isActive = true;
         this.createdAt = LocalDateTime.now();
     }
 
