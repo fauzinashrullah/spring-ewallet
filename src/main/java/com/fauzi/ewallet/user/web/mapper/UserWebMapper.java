@@ -1,8 +1,8 @@
 package com.fauzi.ewallet.user.web.mapper;
 
-import com.fauzi.ewallet.user.application.command.UpdateCommand;
-import com.fauzi.ewallet.user.application.result.UpdateUserResult;
-import com.fauzi.ewallet.user.application.result.UserResult;
+import com.fauzi.ewallet.user.application.inbound.dto.command.UpdateCommand;
+import com.fauzi.ewallet.user.application.inbound.dto.result.UpdateUserResult;
+import com.fauzi.ewallet.user.application.inbound.dto.result.UserResult;
 import com.fauzi.ewallet.user.web.dto.request.UpdateUserRequest;
 import com.fauzi.ewallet.user.web.dto.response.UpdateUserResponse;
 import com.fauzi.ewallet.user.web.dto.response.UserResponse;

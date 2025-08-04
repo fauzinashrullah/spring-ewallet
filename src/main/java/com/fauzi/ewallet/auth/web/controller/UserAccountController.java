@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fauzi.ewallet.auth.application.usecase.UserAuthUseCase;
+import com.fauzi.ewallet.auth.application.inbound.usecase.UserAuthUseCase;
 import com.fauzi.ewallet.auth.web.dto.request.UpdateEmailRequest;
 import com.fauzi.ewallet.auth.web.dto.request.UpdatePasswordRequest;
 import com.fauzi.ewallet.auth.web.dto.response.UserProfileResponse;

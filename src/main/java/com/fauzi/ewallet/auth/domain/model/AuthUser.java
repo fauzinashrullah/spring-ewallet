@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.fauzi.ewallet.auth.domain.exception.RedundantUpdateException;
-import com.fauzi.ewallet.auth.domain.exception.UserActiveException;
+import com.fauzi.ewallet.auth.domain.exception.InactiveUserException;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,7 +37,7 @@ public class AuthUser {
         this.password = newPassword;
     }
     public void deactivate(){
-        if (!this.isActive) throw new UserActiveException("User not found");
+        if (!this.isActive) throw new InactiveUserException("User not found");
         this.isActive = false;
         this.deletedAt = LocalDateTime.now();
     }

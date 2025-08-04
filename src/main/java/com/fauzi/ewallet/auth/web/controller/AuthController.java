@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fauzi.ewallet.auth.application.result.TokenResult;
-import com.fauzi.ewallet.auth.application.usecase.AuthUseCase;
+import com.fauzi.ewallet.auth.application.inbound.dto.result.TokenResult;
+import com.fauzi.ewallet.auth.application.inbound.usecase.AuthUseCase;
 import com.fauzi.ewallet.auth.web.dto.request.LoginRequest;
 import com.fauzi.ewallet.auth.web.dto.request.RegisterRequest;
 import com.fauzi.ewallet.auth.web.dto.response.TokenResponse;

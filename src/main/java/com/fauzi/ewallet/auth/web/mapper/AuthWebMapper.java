@@ -1,10 +1,10 @@
 package com.fauzi.ewallet.auth.web.mapper;
 
-import com.fauzi.ewallet.auth.application.command.LoginCommand;
-import com.fauzi.ewallet.auth.application.command.RegisterCommand;
-import com.fauzi.ewallet.auth.application.command.UpdatePasswordCommand;
-import com.fauzi.ewallet.auth.application.result.UserDataResult;
-import com.fauzi.ewallet.auth.application.result.UserAuthResult;
+import com.fauzi.ewallet.auth.application.inbound.dto.command.LoginCommand;
+import com.fauzi.ewallet.auth.application.inbound.dto.command.RegisterCommand;
+import com.fauzi.ewallet.auth.application.inbound.dto.command.UpdatePasswordCommand;
+import com.fauzi.ewallet.auth.application.inbound.dto.result.UserAuthResult;
+import com.fauzi.ewallet.auth.application.inbound.dto.result.UserDataResult;
 import com.fauzi.ewallet.auth.web.dto.request.LoginRequest;
 import com.fauzi.ewallet.auth.web.dto.request.RegisterRequest;
 import com.fauzi.ewallet.auth.web.dto.request.UpdatePasswordRequest;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fauzi.ewallet.auth.application.usecase.UserAuthUseCase;
+import com.fauzi.ewallet.auth.application.inbound.usecase.UserAuthUseCase;
 import com.fauzi.ewallet.shared.common.dto.ApiResponse;
 
 import lombok.RequiredArgsConstructor;

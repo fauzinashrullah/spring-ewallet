@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fauzi.ewallet.shared.common.dto.ApiResponse;
-import com.fauzi.ewallet.user.application.usecase.UpdateUserUseCase;
+import com.fauzi.ewallet.user.application.inbound.usecase.UpdateUserUseCase;
 import com.fauzi.ewallet.user.web.dto.request.UpdateUserRequest;
 import com.fauzi.ewallet.user.web.dto.response.UpdateUserResponse;
 import com.fauzi.ewallet.user.web.mapper.UserWebMapper;

@@ -2,7 +2,7 @@ package com.fauzi.ewallet.auth.web.helper;
 
 import org.springframework.http.ResponseCookie;
 
-import com.fauzi.ewallet.auth.application.result.TokenResult;
+import com.fauzi.ewallet.auth.application.inbound.dto.result.TokenResult;
 
 public class CookieUtil {
     public static ResponseCookie createRefreshTokenCookie (TokenResult token){
