@@ -23,6 +23,7 @@ import com.fauzi.ewallet.shared.security.JwtProvider;
 import com.fauzi.ewallet.user.application.outbound.dto.result.UserProfileResult;
 import com.fauzi.ewallet.user.application.outbound.usecase.UserCommandUseCase;
 import com.fauzi.ewallet.user.application.outbound.usecase.UserQueryUseCase;
+import com.fauzi.ewallet.wallet.application.usecase.WalletUseCase;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,6 +38,7 @@ public class AuthService implements AuthUseCase{
     private final UserCommandUseCase userCommand;
     private final BlacklistTokenRepository blacklistRepo;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final WalletUseCase walletUseCase;
 
     @Override
     public UserDataResult register(RegisterCommand command){
@@ -53,6 +55,7 @@ public class AuthService implements AuthUseCase{
 
         AuthUser authUser = new AuthUser(userId, command.email(), password, role);
         repository.save(authUser);
+        walletUseCase.createWallet(userId);
 
         UserProfileResult result = userCommand.createProfile(userId, command.name(), command.username(), command.phoneNumber());
         return new UserDataResult(result.name(), result.username(), result.phoneNumber(), authUser.getEmail());

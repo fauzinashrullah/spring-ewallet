@@ -7,4 +7,5 @@ import com.fauzi.ewallet.wallet.domain.model.Wallet;
 
 public interface WalletRepository {
     Optional<Wallet> findByUserId(UUID id);
+    void save(Wallet wallet);
 }

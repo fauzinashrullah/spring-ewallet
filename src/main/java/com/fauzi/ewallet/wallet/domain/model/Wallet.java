@@ -10,5 +10,5 @@ import lombok.Getter;
 public class Wallet {
     private UUID id;
     private UUID userId;
-    private int amount;
+    private int amount = 0;
 }

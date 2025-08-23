@@ -1,4 +1,4 @@
-package com.fauzi.ewallet.wallet.domain.model;
+package com.fauzi.ewallet.wallet.infrastructure.persistence;
 
 import java.util.UUID;
 
