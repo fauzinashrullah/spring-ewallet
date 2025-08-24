@@ -21,9 +21,10 @@ public class WalletController {
     private final WalletUseCase useCase;
 
     @GetMapping("/me")
-    public ResponseEntity<ApiResponse<WalletResponse>> myWallet() {
+    public ResponseEntity<ApiResponse<WalletResponse >> myWallet() {
         WalletResponse response = new WalletResponse(useCase.myWallet());
         return ResponseEntity.ok(new ApiResponse<>(true, "Get wallet success", response));
     }
+    
     
 }

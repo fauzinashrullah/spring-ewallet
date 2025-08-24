@@ -1,5 +1,6 @@
 package com.fauzi.ewallet.wallet.infrastructure.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,5 +30,15 @@ public class JpaWalletRepository implements WalletRepository{
         e.setUserId(w.getUserId());
         e.setAmount(w.getAmount());
         walletRepository.save(e);
+    }
+
+    @Override
+    public List<Wallet> findAll(){
+        return walletRepository.findAll()
+            .stream().map(e -> new Wallet(
+                e.getId(), 
+                e.getUserId(), 
+                e.getAmount()))
+            .toList();
     }
 }
