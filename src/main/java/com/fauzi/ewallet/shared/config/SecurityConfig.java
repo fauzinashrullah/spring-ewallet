@@ -2,6 +2,7 @@ package com.fauzi.ewallet.shared.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -30,7 +32,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/v1/users/**").hasAnyRole("USER", "ADMIN")
-                .anyRequest().authenticated()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**",  "/swagger-ui.html").permitAll()
+                .anyRequest().denyAll()
             )
             .exceptionHandling(ex -> ex
                 .authenticationEntryPoint(customAuthenticationEntryPoint)
